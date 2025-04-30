@@ -43,7 +43,7 @@ def get_response(user_input,context=""):
 
 # Streamlit UI
 st.title("🤖 RuleBot - Chatbot")
-st.markdown("Ask me anything! (Try questions like *hello*, *what is AI?*, *tell me a joke*)")
+st.markdown("Ask me anything! (Try questions like *hello*)")
 
 # Session state for chat history
 if "history" not in st.session_state:
