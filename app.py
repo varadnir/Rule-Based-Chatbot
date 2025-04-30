@@ -8,6 +8,7 @@ from langchain_groq import ChatGroq
 @st.cache_data
 def load_responses():
     with open('responses.json', 'r') as file:
+        print("Extracted")
         return json.load(file)
 
 responses = load_responses()
