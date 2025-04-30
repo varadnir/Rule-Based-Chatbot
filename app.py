@@ -16,23 +16,17 @@ responses = load_responses()
 def get_response(user_input,context=""):
     llm = ChatGroq(temperature=0.7, model_name="llama3-70b-8192", groq_api_key="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")
    
-    prompt = f"""
-    Given the user's question below, find the best matching user input from the context and return the associated answer.
+    prompt = f"""You are given a jason containing user response and answer, give the appropriate response using the given context and answer:
 
     Context:
     {context}
 
-    previous chat :
-    {st.session_state.history}
-
     Question:
     {user_input}
 
-    Instructions:
-    1. Only respond using answers exactly as provided in the context.
-    2. If the question does not match any entry in the context, reply with: "Sorry, I don't know."
-    3. Do not generate new or inferred answers.
-    4. Match the question as literally and precisely as possible.
+    note: 
+    1. only use the answers present in the context.
+    2. If the question is not present in the context, answer with "sorry, I don't know".
     Answer:"""
 
     response = llm.invoke(prompt)
