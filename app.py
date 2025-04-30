@@ -33,7 +33,6 @@ def get_response(user_input,context=""):
     2. If the question does not match any entry in the context, reply with: "Sorry, I don't know."
     3. Do not generate new or inferred answers.
     4. Match the question as literally and precisely as possible.
-    5. Only give the answer without any additional text.
     Answer:"""
 
     response = llm.invoke(prompt)
