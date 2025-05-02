@@ -17,7 +17,7 @@ responses = load_responses()
 def get_response(user_input,context=""):
     llm = ChatGroq(temperature=0.7, model_name="llama3-70b-8192", groq_api_key="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")
    
-    prompt = f"""You are given a jason containing user response and answer, give the appropriate response using the given context and answer:
+    prompt = f"""You are given a json containing user input and their response, give the appropriate response using the given context and answer:
 
     Context:
     {context}
@@ -34,26 +34,38 @@ def get_response(user_input,context=""):
     return response.content
         
     
+# ✅ Page Configuration
 
-# Streamlit UI
-st.title("🤖 RuleBot - Chatbot")
-st.markdown("Ask me anything! (Try questions like *hello*)")
+# ✅ App Title and Description
+st.title("🤖 Rule-Based Chatbot")
+st.markdown("Welcome! Ask me anything and I'll reply based on predefined rules.")
 
-# Session state for chat history
-if "history" not in st.session_state:
-    st.session_state.history = []
+st.divider()
 
-# Chat input
-user_input = st.text_input("You:", key="input")
+# ✅ Initialize Chat History
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# ✅ Display Chat History
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+
+# ✅ User Input Section
+user_input = st.chat_input("💬 Type your message here...")
 
 if user_input:
-    bot_response = get_response(user_input)
-    st.session_state.history.append(("You", user_input))
-    st.session_state.history.append(("Bot", bot_response))
+    # Append and display user message
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.markdown(user_input)
 
-# Display chat history
-for sender, msg in st.session_state.history:
-    if sender == "You":
-        st.markdown(f"**🧑 {sender}:** {msg}")
-    else:
-        st.markdown(f"**🤖 {sender}:** {msg}")
+    # Get rule-based response (replace with your logic)
+    ai_response = get_response(user_input,responses)
+
+    # Append and display bot response
+    st.session_state.messages.append({"role": "assistant", "content": ai_response})
+    with st.chat_message("assistant"):
+        st.markdown(ai_response)
+    
+    
