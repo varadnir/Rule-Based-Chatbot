@@ -15,7 +15,7 @@ responses = load_responses()
 
 # Match user input with patterns
 def get_response(user_input,context=""):
-    llm = ChatGroq(temperature=0.7, model_name="llama3-70b-8192", groq_api_key="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")
+    llm = ChatGroq(temperature=0.7, model_name="llama3-70b-8192", groq_api_key="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")
    
     prompt = f"""You are given a json containing user input and their response, give the appropriate response using the given context and answer:
 
